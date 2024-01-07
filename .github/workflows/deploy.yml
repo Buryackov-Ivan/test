@@ -24,22 +24,22 @@ jobs:
     - name: SCP files to Ubuntu Server
       uses: appleboy/scp-action@master
       with:
-#        host: ${{ secrets.SERVER_HOST }}
+       # host: ${{ secrets.SERVER_HOST }}
         host: hurio.ydns.eu
         port: 22
-        proxy_port: 22
+        # proxy_port: 22
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         source: "quiz/"
-        target: "/quiz-deployment/quiz-html"
+        target: "/quiz-deployment/quiz-html/"
 
     - name: SSH into Ubuntu Server
       uses: appleboy/ssh-action@master
       with:
-#        host: ${{ secrets.SERVER_HOST }}
+       # host: ${{ secrets.SERVER_HOST }}
         host: hurio.ydns.eu
         port: 22
-        proxy_port: 22
+        # proxy_port: 22
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
