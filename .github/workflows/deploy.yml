@@ -1,4 +1,4 @@
-name: Deploy to Ubuntu Server
+name: Deploy to Remote Server
 
 on:
   push:
@@ -12,37 +12,41 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+      
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
 
-    - name: Set up Docker Compose
-      run: docker-compose up -d
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Make build.sh executable
+      run: chmod +x ././build.sh
 
-    - name: Build and Deploy
-      run: |
-        # Ваш скрипт для сборки и выгрузки файлов
-        # Например, использование npm, make, или других инструментов
+    - name: Build Quiz App
+      run: ././build.sh
+      working-directory: ././  
 
-    - name: SCP files to Ubuntu Server
-      uses: appleboy/scp-action@master
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
       with:
-       # host: ${{ secrets.SERVER_HOST }}
-        host: hurio.ydns.eu
-        port: 22
-        # proxy_port: 22
-        username: ${{ secrets.SERVER_USERNAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        source: "quiz/"
-        target: "/quiz-deployment/quiz-html/"
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: SSH into Ubuntu Server
+    - name: Tag Docker Image
+      run: docker tag my-nginx:latest vishnya1chern/my-nginx:latest
+      working-directory: ././  
+      
+    - name: Push Docker Image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/my-nginx:latest
+      working-directory: ././
+
+    - name: Deploy to Remote Server
       uses: appleboy/ssh-action@master
       with:
-       # host: ${{ secrets.SERVER_HOST }}
-        host: hurio.ydns.eu
-        port: 22
-        # proxy_port: 22
+        host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        # port: 80
         script: |
-          cd /var/www/html/
-          docker-compose down
-          docker-compose up -d
+          docker-compose -f ././docker-compose.yml pull
+          docker-compose -f ././docker-compose.yml up -d
