@@ -22,6 +22,7 @@ jobs:
                 host: ${{ secrets.SERVER_HOST }}
                 username: ${{ secrets.SERVER_USERNAME }}
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
+                port: 80
                 # dest: 'dikamen@"${{ secrets.SERVER_HOST }}":/usr/share/nginx/html'
                 script: |
                   docker-compose -f ././docker-compose.yml pull
