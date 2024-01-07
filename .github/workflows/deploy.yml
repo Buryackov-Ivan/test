@@ -27,6 +27,7 @@ jobs:
 #        host: ${{ secrets.SERVER_HOST }}
         host: hurio.ydns.eu
         port: 80
+        proxy_port: 80
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         source: "quiz/"
@@ -38,6 +39,7 @@ jobs:
 #        host: ${{ secrets.SERVER_HOST }}
         host: hurio.ydns.eu
         port: 80
+        proxy_port: 80
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
