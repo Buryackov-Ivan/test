@@ -26,7 +26,7 @@ jobs:
                     options: ''
                     ssh_options: ''
                     src: '.'
-                    dest: 'dikamen@"${{vars.SERVER_HOST}}":/usr/share/nginx/html'
+                    dest: 'dikamen@"${{secrets.SERVER_HOST}}":/usr/share/nginx/html'
  
             -   name: Display status from deploy
                 run: echo "${{ steps.deploy.outputs.status }}"
