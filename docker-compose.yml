@@ -1,0 +1,18 @@
+version: '3'
+services:
+  nginx-container:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./quiz-html
+
+  deploy-container:
+    build:
+      context: .
+      dockerfile: Dockerfile.deploy
+    volumes:
+      - ./quiz-html
+    command: /app/deploy.sh
+volumes:
+  quiz-html:
