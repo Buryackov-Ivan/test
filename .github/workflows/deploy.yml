@@ -24,9 +24,9 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: 80
                 # dest: 'dikamen@"${{ secrets.SERVER_HOST }}":/usr/share/nginx/html'
-                script: |
-                  docker-compose -f ././docker-compose.yml pull
-                  docker-compose -f ././docker-compose.yml up -d
+                # script: |
+                #   docker-compose -f ././docker-compose.yml pull
+                #   docker-compose -f ././docker-compose.yml up -d
 
             # -   name: Display status from deploy
             #     run: echo "${{ steps.deploy.outputs.status }}"
