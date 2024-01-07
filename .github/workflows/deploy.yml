@@ -48,6 +48,10 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         # port: 80
+        timeout: 120s  # Adjust this value based on your network conditions
+        command_timeout: 10m
+        proxy_port: 22
+        proxy_timeout: 60s  # Adjust this value based on your network conditions
         script: |
           docker-compose -f ././docker-compose.yml pull
           docker-compose -f ././docker-compose.yml up -d
