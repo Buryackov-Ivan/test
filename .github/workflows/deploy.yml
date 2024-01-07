@@ -23,7 +23,7 @@ jobs:
       run: chmod +x ././build.sh
 
     - name: Build Quiz App
-      run: ././build.sh
+      run: ././deploy.sh
       working-directory: ././  
 
     - name: Log in to Docker Hub
