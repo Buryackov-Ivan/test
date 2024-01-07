@@ -16,4 +16,4 @@ sleep 10
 # ...
 
 # Перезапустить Nginx (если необходимо)
-docker restart nginx-container
+# docker restart nginx-container
